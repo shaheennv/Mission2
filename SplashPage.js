@@ -1,24 +1,42 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, List, ListItem } from 'native-base';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, List, ListItem,Spinner } from 'native-base';
 import { ScrollView, Text, TouchableHighlight, Image, View,RefreshControl, ListView, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 var REQUEST_URL = 'https://cardbox-api.herokuapp.com/cards.json';
 var MainPage = require('./MainPage');
 var AddCard = require('./AddCard');
+var CardShow = require('./CardShow');
 
 const styles = StyleSheet.create({
-    containerSplash: {
+  containerList: {
+    marginLeft: 0,
+    borderBottomWidth: 0,
+    paddingRight: 0,
+  },
+  containerSplash: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    backgroundColor: '#000',
+  },
+  outerShell: {
+    margin: 0,
+  },
+  buttonAdd: {
+    color: "#fff",
+  },
+  headerTitle: {
+    color: '#fff',
+  },
+  header: {
+    backgroundColor: '#000',
   },
   welcome: {
-    fontSize: 35,
+    fontSize: 15,
+    color: '#bbb',
     textAlign: 'center',
-    margin: 10,
   },
   instructions: {
     textAlign: 'center',
@@ -26,21 +44,55 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
+        backgroundColor: "#000",
+        margin: 0,
   },
   cardItem: {
     flex: 1,
     flexDirection: 'row',
+     alignItems: 'stretch', 
     justifyContent: 'center',
-    alignItems: 'center'
+    height: 250,
+    margin: 0,
   },
   imgThumb: {
-    width: 50, 
-    height: 50,
-    marginRight : 20
+    flex: 1,
+     resizeMode: 'stretch',
   },
+  cardDesc: {
+    flex: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  cardTitle:{
+    fontSize: 23,
+    fontFamily: "Lato", 
+    flex: 0.5,
+    color: '#fff',
+    marginBottom: 5,
+  },
+  postDetails: {
+    flex: 0.5,
+    flexDirection: 'row',
+  },
+  userName: {
+    fontSize: 13,
+    fontFamily: "Lato-Bold",
+    color: '#808080',
+    marginRight: 10,
+  },
+  cardDescInside: {
+    padding: 15,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    position: 'relative',
+    top: 150,
+    left: 0,
+    height: 150,
+    opacity: 0.8,
+    backgroundColor: '#000',
+  }
 })
 
 
@@ -60,18 +112,7 @@ class SplashPage extends Component {
   renderCard(card) {
     var img = card.image_url;
          return (
-            <ListItem >
-              <TouchableHighlight onPress= {() => this.gotoNext(card)}>
-                      <View>
-                          <View style={styles.cardItem}>
-                            <Image
-                                style={styles.imgThumb}
-                                source={{uri: "https://i.imgur.com/YuO1fji.jpg"}}  />
-                              <Text style={{fontSize: 25, flex: 1, }}>{card.title}</Text>
-                          </View>
-                      </View>
-              </TouchableHighlight>
-            </ListItem>
+            <CardShow card={card} navigator={this.props.navigator}  />
          );
      }
   componentDidMount() {
@@ -107,17 +148,7 @@ class SplashPage extends Component {
               <List>
                 <ListView
                     dataSource={this.state.dataSource}
-                    renderRow={this.renderCard.bind(this)} 
-                    refreshControl={
-                      <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this._onRefresh.bind(this)}
-                        tintColor="#ff0000"
-                        title="Loading..."
-                        titleColor="#00ff00"
-                        colors={['#ff0000', '#00ff00', '#0000ff']}
-                        progressBackgroundColor="#ffff00"  />
-                         }/>
+                    renderRow={this.renderCard.bind(this)} />
               </List>
             )
          } else {
@@ -125,29 +156,17 @@ class SplashPage extends Component {
               <MainPage />
             )
          }
-         console.log("asd")
          return (
             <Container> 
-              <Header>
-                <Button transparent onPress= {() => this.gotoAddCard()}>
-                    <Icon name='plus' size={20} color="#4078c0" />
+              <Header style={styles.header}>
+                <Title style={styles.headerTitle}>Mission2</Title>
+                <Button textStyle={{color: '#fff'}} transparent onPress= {() => this.gotoAddCard()}>
+                    ADD
                 </Button>
-                <Title>Mission2</Title>
               </Header>
-              <Content>
+              <Content style={styles.container}>
                 {viewScene}
               </Content>
-
-              <Footer>
-                  <FooterTab>
-                    <Button active={this.state.tab1} onPress={() => this.toggleTab1()} >
-                        Cards
-                    </Button>
-                    <Button active={this.state.tab2} onPress={() => this.toggleTab2()} >
-                        Profile
-                    </Button>
-                  </FooterTab>
-              </Footer>
             </Container>
           );
   }  
@@ -155,21 +174,12 @@ class SplashPage extends Component {
   renderLoadingView() {
       return (
       <View style={styles.containerSplash}>
-        <Text style={styles.welcome}>
-          Mission2!
-        </Text>
+          <Spinner color='white' />
+          <Text style={styles.welcome}>Loading</Text>
       </View>
       );
   }
-  gotoNext(card) {
-    console.log("gotoNext")
-    this.props.navigator.push({
-      id: 'CardList',
-      name: 'CardList',
-      data: card
 
-    });
-  }
   gotoAddCard() {
     this.props.navigator.push({
       id: 'AddCard',
@@ -177,18 +187,18 @@ class SplashPage extends Component {
 
     });
   } 
-    toggleTab1() {
-      this.setState({
-        tab1: true,
-        tab2: false,
-      });
-    }
-    toggleTab2() {
-      this.setState({
-        tab1: false,
-        tab2: true,
-      });
-    }
+  toggleTab1() {
+    this.setState({
+      tab1: true,
+      tab2: false,
+    });
+  }
+  toggleTab2() {
+    this.setState({
+      tab1: false,
+      tab2: true,
+    });
+  }
 }
 
 

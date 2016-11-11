@@ -7,7 +7,7 @@ import EditCard from './EditCard';
 var REQUEST_URL = 'https://cardbox-api.herokuapp.com/cards.json';
 
 // var MyScene = require('./MyScene')
-var CardList = require('./CardList');
+var ArticleShow = require('./ArticleShow');
 // var WebPage = require('./components/webpage');
 var MainPage = require('./MainPage');
 var MyNavigator = require('./MyNavigator');
@@ -31,7 +31,7 @@ class MyCards extends Component{
               if (route.sceneConfig) {
                 return route.sceneConfig;
               }
-              return Navigator.SceneConfigs.HorizontalSwipeJump;
+              return Navigator.SceneConfigs.PushFromRight;
             }} />
 
       );
@@ -46,10 +46,10 @@ class MyCards extends Component{
             navigator={navigator} /> 
         );
       }
-      if (routeId === 'CardList') {
+      if (routeId === 'ArticleShow') {
         return (
 
-              <CardList
+              <ArticleShow
                 navigator={navigator} card={route.data}
                 onBack={() => {
                     navigator.pop(); }} />
