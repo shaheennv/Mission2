@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "native-base": "^0.5.13",
+    "rc-swipeout": "^1.1.5",
     "react": "15.3.2",
     "react-native": "0.35.0"
   },

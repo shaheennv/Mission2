@@ -26,6 +26,7 @@
 		0743D0241DD5EB9200E7C101 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0743D0231DD5EB9200E7C101 /* Lato-Bold.ttf */; };
 		0743D0251DD5EBB200E7C101 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
 		0743D0271DD61F5500E7C101 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0743D0261DD61F5500E7C101 /* Lato-Regular.ttf */; };
+		0743D0291DD9C41500E7C101 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0743D0281DD9C32100E7C101 /* Lato-Black.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -147,6 +148,7 @@
 		0743D0181DD5C43A00E7C101 /* Lato.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lato.ttf; sourceTree = "<group>"; };
 		0743D0231DD5EB9200E7C101 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		0743D0261DD61F5500E7C101 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		0743D0281DD9C32100E7C101 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		0A7E4C1285284E39BD5CA6C2 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				0A7E4C1285284E39BD5CA6C2 /* Ionicons.ttf */,
 				BDFE9447F9A74A9B9AD68894 /* MaterialIcons.ttf */,
 				0743D0261DD61F5500E7C101 /* Lato-Regular.ttf */,
+				0743D0281DD9C32100E7C101 /* Lato-Black.ttf */,
 				0743D0181DD5C43A00E7C101 /* Lato.ttf */,
 				AC5CA2B313E44D2AB7C67761 /* Octicons.ttf */,
 				3B6C43CF38024CB4A711D5DB /* Zocial.ttf */,
@@ -615,6 +618,7 @@
 				C720CD15DFC54DDC9AD4752E /* Octicons.ttf in Resources */,
 				0743D0271DD61F5500E7C101 /* Lato-Regular.ttf in Resources */,
 				72CA5828C79A4FD58F6CE31B /* Zocial.ttf in Resources */,
+				0743D0291DD9C41500E7C101 /* Lato-Black.ttf in Resources */,
 				0743D0251DD5EBB200E7C101 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

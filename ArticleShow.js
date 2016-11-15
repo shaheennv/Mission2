@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { ScrollView, Text,StyleSheet, TouchableHighlight, Image, View, ListView } from 'react-native';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Icon, List, ListItem } from 'native-base';
 var CardShow = require('./CardShow');
+var styles = require('./Stylesheet');
 
 class ArticleShow extends Component {
 
@@ -32,26 +33,5 @@ class ArticleShow extends Component {
     });
   } 
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#000',
-  },
-  headerTitle: {
-    color: '#fff',
-  },
-  header: {
-    backgroundColor: '#000',
-  },
-  img: {
-    width: 200,
-    height: 200,
-  },
-  content: {
-    color: '#fff',
-    margin: 20,
-  }
-})
 
 module.exports = ArticleShow;

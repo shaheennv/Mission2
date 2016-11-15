@@ -5,58 +5,8 @@ import { Container, Header, Title, Content, Footer, FooterTab, Input, InputGroup
 import { ScrollView, Text, TouchableHighlight, Image,TextInput, View, ListView, StyleSheet,AlertIOS } from 'react-native';
 var REQUEST_URL = 'https://cardbox-api.herokuapp.com/cards.json';
 
-const styles = StyleSheet.create({
-    container: {
-    padding: 20,
-    backgroundColor: '#000',
-  },
-  header: {
-    backgroundColor: '#000',
-  },
-  cardAddContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: 15,
-  },
-  cardAddTitlePanel: {
-    width: 190,
-    height: 65,
-  },
-  cardAddTitle1: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 20,
-    fontFamily: 'Lato-Bold'
-  },
-  cardAddTitle2: {
-    fontSize: 40,
-    fontFamily: 'Lato',
-    color: '#fff',
-    marginTop: 5,
-    textAlign: 'center',
-  },
-  formContainer: {
-    marginTop: 60,
-  },
-  formInput: {
-    backgroundColor: '#fff',
-    borderWidth: 0,
-    borderRadius: 5
-  },
-  placeholder: {
-    color: '#fff',
-    alignSelf: 'flex-start',
-    marginBottom: 10,
-    fontSize: 20,
-    fontFamily: 'Lato-Regular',
-  },
-  footerPanel: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-end'
-  }
-});
+var styles = require('./Stylesheet');
+
 
 class AddCard extends Component {
   constructor(props) {
@@ -68,6 +18,7 @@ class AddCard extends Component {
     };
   }
   render() {
+
     return (
       <Container>
         <Header style={styles.header}>
@@ -76,7 +27,7 @@ class AddCard extends Component {
           </Button>
           <Title>Mission2</Title>
         </Header>
-        <Content style={styles.container}>
+        <Content style={styles.containerEdit}>
           <View style={styles.cardAddContainer}>
             <View style={styles.cardAddTitlePanel}>
               <Text style={styles.cardAddTitle1}>Create your</Text>
@@ -107,7 +58,7 @@ class AddCard extends Component {
               </ListItem>
           </List>
           <View style={styles.footerPanel}>
-            <Button block style={{height: 60, backgroundColor: '#27AE60', margin: 0}} onPress= {() => this.updateData(card.id)}  >
+            <Button block style={styles.submitButton} onPress= {() => this.postData()}  >
                 CREATE ARTICLE
             </Button>
           </View>

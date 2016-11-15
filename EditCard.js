@@ -2,9 +2,10 @@
 
 import React, { Component, PropTypes } from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Input, InputGroup, Button, Icon, List, ListItem } from 'native-base';
-import { ScrollView, Text, TouchableHighlight, Image,TextInput, View, ListView } from 'react-native';
+import { ScrollView, Text, TouchableHighlight, Image,TextInput, View, ListView,AlertIOS,StyleSheet } from 'react-native';
 var REQUEST_URL = 'https://cardbox-api.herokuapp.com/cards.json';
 
+var styles = require('./Stylesheet');
 class EditCard extends Component {
   constructor(props) {
          super(props);
@@ -16,53 +17,63 @@ class EditCard extends Component {
      }
   render() {
     var card = this.props.card;
+    var navigator = this.props.navigator;
     return (
       <Container>
-        <Header>
+        <Header style={styles.header}>
           <Button transparent onPress= {() => this.props.onBack()}>
-              <Icon name='ios-arrow-back' />
+              <Icon style={{color: '#fff'}} name='ios-arrow-back' />
           </Button>
           <Title>Mission2</Title>
         </Header>
-        <Content>
-          <List>
-              <ListItem>
-                  <InputGroup>
-                      <Input placeholder='Title' defaultValue ={card.title} onChangeText={(title) => this.setState({title})}  />
+        <Content style={styles.containerEdit}>
+          <View style={styles.cardAddContainer}>
+            <View style={styles.cardAddTitlePanel}>
+              <Text style={styles.cardAddTitle1}>Edit your</Text>
+              <View style={{width: 190, height: 1, backgroundColor: '#fff', marginTop: 15}} />
+              <Text style={styles.cardAddTitle2}>Content</Text>
+            </View>
+          </View>
+          <List style={styles.formContainer}>
+              <Text style={styles.placeholder}>Title</Text>
+              <ListItem style={{ marginBottom: 20,marginLeft: 0, paddingLeft: 0}}>
+                  <InputGroup style={{borderWidth: 0, paddingLeft: 0}}>
+                      <Input  defaultValue ={card.title} style={styles.formInput} onChangeText={(title) => this.setState({title})}  />
                   </InputGroup>
               </ListItem>
           
-              <ListItem>
-                  <InputGroup >
-                      <Input placeholder='Content' defaultValue={card.content} onChangeText={(content) => this.setState({content})}  />
+              <Text style={styles.placeholder}>Content</Text>
+              <ListItem style={{ marginBottom: 20,marginLeft: 0, paddingLeft: 0}}>
+                  <InputGroup style={{ borderWidth: 0, paddingLeft: 0}} >
+                      <Input defaultValue={card.content} style={styles.formInput} onChangeText={(content) => this.setState({content})}  />
                   </InputGroup>
               </ListItem>
-              <ListItem>
-                  <InputGroup >
-                      <Input placeholder='Image Url' defaultValue={card.image_url} onChangeText={(image_url) => this.setState({image_url})}  />
+
+              <Text style={styles.placeholder}>Image Url</Text>
+              <ListItem style={{ marginBottom: 20, marginLeft: 0, paddingLeft: 0}}>
+                  <InputGroup style={{borderWidth: 0, paddingLeft: 0}} >
+                      <Input defaultValue={card.image_url} style={styles.formInput} onChangeText={(image_url) => this.setState({image_url})}  />
                   </InputGroup>
               </ListItem>
           </List>
+          <View style={styles.footerPanel}>
+            <Button block style={styles.submitButton} onPress= {() =>  this.updateData(card.id,navigator)}  >
+                EDIT ARTICLE
+            </Button>
+          </View>
         </Content>
-        <Footer>
-            <FooterTab>
-              <Button danger onPress= {() => this.deleteData(card.id)}  >
-                  Delete
-              </Button>
-              <Button active onPress= {() => this.updateData(card.id)}  >
-                  Submit
-              </Button>
-            </FooterTab>
-        </Footer>
       </Container>
     );
   }
-  deleteData(id){
-    fetch("https://cardbox-api.herokuapp.com/cards/"+ id +".json", {
-      method: 'DELETE',
-    })    
-  }
-  updateData(id){
+    gotoHome() {
+      console.log("gotoNext")
+      this.props.navigator.push({
+        id: 'SplashPage',
+        name: 'SplashPage'
+
+      });
+    }
+  updateData(id,navigator){
     fetch("https://cardbox-api.herokuapp.com/cards/"+ id +".json", {
       method: 'PUT',
       headers: {
@@ -74,8 +85,16 @@ class EditCard extends Component {
         content: this.state.content,
         image_url: this.state.image_url
       })
-    })
-    
+    }).then(function(response) {
+      navigator.push({
+        id: 'SplashPage',
+        name: 'SplashPage'
+
+      });
+      }).catch(function(err) {
+      AlertIOS.alert(
+        'Error '+ err )
+      });
   }
 }
 

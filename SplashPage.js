@@ -8,92 +8,8 @@ var REQUEST_URL = 'https://cardbox-api.herokuapp.com/cards.json';
 var MainPage = require('./MainPage');
 var AddCard = require('./AddCard');
 var CardShow = require('./CardShow');
+var styles = require('./Stylesheet');
 
-const styles = StyleSheet.create({
-  containerList: {
-    marginLeft: 0,
-    borderBottomWidth: 0,
-    paddingRight: 0,
-  },
-  containerSplash: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000',
-  },
-  outerShell: {
-    margin: 0,
-  },
-  buttonAdd: {
-    color: "#fff",
-  },
-  headerTitle: {
-    color: '#fff',
-  },
-  header: {
-    backgroundColor: '#000',
-  },
-  welcome: {
-    fontSize: 15,
-    color: '#bbb',
-    textAlign: 'center',
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  container: {
-        backgroundColor: "#000",
-        margin: 0,
-  },
-  cardItem: {
-    flex: 1,
-    flexDirection: 'row',
-     alignItems: 'stretch', 
-    justifyContent: 'center',
-    height: 250,
-    margin: 0,
-  },
-  imgThumb: {
-    flex: 1,
-     resizeMode: 'stretch',
-  },
-  cardDesc: {
-    flex: 0.5,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  cardTitle:{
-    fontSize: 23,
-    fontFamily: "Lato", 
-    flex: 0.5,
-    color: '#fff',
-    marginBottom: 5,
-  },
-  postDetails: {
-    flex: 0.5,
-    flexDirection: 'row',
-  },
-  userName: {
-    fontSize: 13,
-    fontFamily: "Lato-Bold",
-    color: '#808080',
-    marginRight: 10,
-  },
-  cardDescInside: {
-    padding: 15,
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    position: 'relative',
-    top: 150,
-    left: 0,
-    height: 150,
-    opacity: 0.8,
-    backgroundColor: '#000',
-  }
-})
 
 
 class SplashPage extends Component {
@@ -104,8 +20,6 @@ class SplashPage extends Component {
              dataSource: new ListView.DataSource({
                  rowHasChanged: (row1, row2) => row1 !== row2,
              }),
-              tab1: true,
-              tab2: false,
               refreshing: false,
          };
      }
@@ -120,7 +34,6 @@ class SplashPage extends Component {
      }
  
   fetchData() {
-    console.log("fetchData");
      fetch(REQUEST_URL)
      .then((response) => response.json())
      .then((responseData) => {
@@ -131,46 +44,58 @@ class SplashPage extends Component {
      })
      .done();
   }
-  _onRefresh() {
-    this.setState({refreshing: true});
-    fetchData().then(() => {
-      console.log("fetch data done")
-      this.setState({refreshing: false});
-    });
-  }
+
+ _onRefresh(){
+    console.log("done");
+    }
   render() {
          if (this.state.isLoading) {
              return this.renderLoadingView();
          }
-         if(this.state.tab1){
-
-          var viewScene = (
-              <List>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderCard.bind(this)} />
-              </List>
-            )
-         } else {
-          var viewScene = (
-              <MainPage />
-            )
-         }
          return (
             <Container> 
               <Header style={styles.header}>
+                <Button transparent onPress= {() => this.gotoHome()}>
+                  <Icon style={{color: '#fff', fontSize: 20}} name="refresh" />
+                </Button>
                 <Title style={styles.headerTitle}>Mission2</Title>
-                <Button textStyle={{color: '#fff'}} transparent onPress= {() => this.gotoAddCard()}>
+                <Button textStyle={{color: '#fff',alignItems: 'flex-end'}} transparent onPress= {() => this.gotoAddCard()}>
                     ADD
                 </Button>
               </Header>
               <Content style={styles.container}>
-                {viewScene}
+                <List>
+                  <ListView
+                    initialListSize={1}
+                    enableEmptySections={true}
+                    emptyView={this._renderEmptyView}
+                    scrollEnabled={false}
+                    keyboardShouldPersistTaps={true}
+                    refreshControl={
+                      <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this._onRefresh}
+                        tintColor="#ff0000"
+                        title="Loading..."
+                        titleColor="#00ff00"
+                        colors={['#ff0000', '#00ff00', '#0000ff']}
+                        progressBackgroundColor="#ffff00" />
+                    }
+                    dataSource={this.state.dataSource}
+                    renderRow={this.renderCard.bind(this)} />
+                </List>
               </Content>
             </Container>
           );
   }  
-    
+  _renderEmptyView(){
+
+    return (
+      <View>
+        <Text style={{color: 'white',marginTop: 200}}>No Cards available</Text>
+      </View>
+    )
+  }
   renderLoadingView() {
       return (
       <View style={styles.containerSplash}>
@@ -187,18 +112,6 @@ class SplashPage extends Component {
 
     });
   } 
-  toggleTab1() {
-    this.setState({
-      tab1: true,
-      tab2: false,
-    });
-  }
-  toggleTab2() {
-    this.setState({
-      tab1: false,
-      tab2: true,
-    });
-  }
 }
 
 
