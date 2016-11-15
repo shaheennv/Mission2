@@ -57,12 +57,12 @@ class AddCard extends Component {
                   </InputGroup>
               </ListItem>
           </List>
-          <View style={styles.footerPanel}>
-            <Button block style={styles.submitButton} onPress= {() => this.postData()}  >
-                CREATE ARTICLE
-            </Button>
-          </View>
         </Content>
+        <Footer style={{borderColor: '#000',height: 70}}>
+              <Button block style={styles.submitButton} onPress= {() => this.postData()}  >
+                  <Text style={{fontFamily : 'Lato-Black', color: '#fff'}}>CREATE ARTICLE</Text>
+              </Button>  
+        </Footer>
       </Container>
     );
   }

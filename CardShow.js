@@ -13,6 +13,7 @@ var styles = require('./Stylesheet');
 class CardShow extends Component {
   constructor(props) {
          super(props);
+         this.state = {touchableAction: false};
      }
   alertDelete(id){
     AlertIOS.alert(
@@ -33,7 +34,7 @@ var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     var month = monthNames[updated_at[1]-1];
     var date = updated_at[2];
     var year = updated_at[0];
-    console.log(month);
+    var touchableAction = this.props.touchableAction;
     let swipeBtns = [{
       text: 'Delete',
       backgroundColor: 'red',
@@ -42,7 +43,7 @@ var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
          return (
           <Swipeout autoClose={true} right={swipeBtns} style={{padding: 0, height: 250}}>
             <ListItem style={styles.containerList} >
-              <TouchableHighlight onPress= {() => this.gotoNext(card)}>
+              <TouchableHighlight onPress= {() => ((touchableAction) ? this.gotoNext(card): '')}>
                       <View style={styles.outerShell}>
                           <View style={styles.cardItem}>
                             <Image
@@ -80,7 +81,6 @@ var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     this.gotoHome(); 
   }
   gotoNext(card) {
-    console.log("gotoNext")
     this.props.navigator.push({
       id: 'ArticleShow',
       name: 'ArticleShow',

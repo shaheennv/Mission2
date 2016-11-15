@@ -5,7 +5,6 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, List, Lis
 import { ScrollView, Text, TouchableHighlight, Image, View,RefreshControl, ListView, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 var REQUEST_URL = 'https://cardbox-api.herokuapp.com/cards.json';
-var MainPage = require('./MainPage');
 var AddCard = require('./AddCard');
 var CardShow = require('./CardShow');
 var styles = require('./Stylesheet');
@@ -26,28 +25,32 @@ class SplashPage extends Component {
   renderCard(card) {
     var img = card.image_url;
          return (
-            <CardShow card={card} navigator={this.props.navigator}  />
+            <CardShow card={card} touchableAction={true} navigator={this.props.navigator}  />
          );
      }
   componentDidMount() {
-         this.fetchData();
-     }
+   this.fetchData();
+  }
  
   fetchData() {
-     fetch(REQUEST_URL)
-     .then((response) => response.json())
-     .then((responseData) => {
-         this.setState({
-             dataSource: this.state.dataSource.cloneWithRows(responseData),
-             isLoading: false
-         });
-     })
-     .done();
+    fetch(REQUEST_URL)
+    .then((response) => response.json())
+    .then((responseData) => {
+      this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
+          isLoading: false
+      });
+    })
+    .done();
   }
+  gotoHome() {
+    console.log("gotoNext")
+    this.props.navigator.push({
+      id: 'SplashPage',
+      name: 'SplashPage'
 
- _onRefresh(){
-    console.log("done");
-    }
+    });
+  }
   render() {
          if (this.state.isLoading) {
              return this.renderLoadingView();
@@ -71,16 +74,6 @@ class SplashPage extends Component {
                     emptyView={this._renderEmptyView}
                     scrollEnabled={false}
                     keyboardShouldPersistTaps={true}
-                    refreshControl={
-                      <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this._onRefresh}
-                        tintColor="#ff0000"
-                        title="Loading..."
-                        titleColor="#00ff00"
-                        colors={['#ff0000', '#00ff00', '#0000ff']}
-                        progressBackgroundColor="#ffff00" />
-                    }
                     dataSource={this.state.dataSource}
                     renderRow={this.renderCard.bind(this)} />
                 </List>

@@ -60,8 +60,8 @@ module.exports = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   submitButton: {
-    height: 60, 
-    backgroundColor: '#27AE60', 
+    height: 70, 
+    backgroundColor: '#27AE60',
     margin: 0,
   },
   containerList: {

@@ -56,12 +56,12 @@ class EditCard extends Component {
                   </InputGroup>
               </ListItem>
           </List>
-          <View style={styles.footerPanel}>
-            <Button block style={styles.submitButton} onPress= {() =>  this.updateData(card.id,navigator)}  >
-                EDIT ARTICLE
-            </Button>
-          </View>
         </Content>
+        <Footer style={{borderColor: '#000',height: 70}}>
+              <Button block style={styles.submitButton} onPress= {() =>  this.updateData(card.id,navigator)} >
+                  <Text style={{fontFamily : 'Lato-Black', color: '#fff'}}>EDIT ARTICLE</Text>
+              </Button>  
+        </Footer>
       </Container>
     );
   }
